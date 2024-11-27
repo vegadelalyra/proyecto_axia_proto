@@ -1,28 +1,18 @@
 @tailwind base
 @tailwind components
 @tailwind utilities
-
+  
 :root
   --blanco: #FFFFFF
-  --campos: #F8F5F3
-  --texto-secundario: #6C6C6C
+  --lm-campos: #F8F5F3
+  --lm-texto-secundario: #6C6C6C
   --color-principal: #2071B7
-  --color-secundario: #1172B7
-  --texto-principal: black
-
-.dark-mode
-  --blanco: #121212
-  --campos: #1F1F1F
-  --texto-principal: white
-  --texto-secundario: #B0B0B0
-  --color-secundario: #E0E0E0
 
 body
   margin: 0
   padding: 0
-  background-color: var(--blanco)
+  background-color: #F4F4F4
   font-family: 'Ubuntu', sans-serif
-  color: var(--texto-secundario)
 
 header
   background-color: var(--blanco)
@@ -36,15 +26,15 @@ header
 .container
   width: 100%
   margin: 0 auto
-  margin-bottom: 15px
-  color: var(--texto-secundario)
+  margin-bottom: 36px
+  color: var(--lm-texto-secundario)
   display: flex
   justify-content: space-between
   align-items: center
 
 .split-button
-  background-color: var(--campos)
-  border: 1px solid var(--texto-secundario)
+  background-color: var(--lm-campos)
+  border: 1px solid var(--lm-texto-secundario)
   border-radius: 21px
   display: flex
   justify-content: space-between
@@ -55,7 +45,7 @@ header
   gap: 5px
 
   svg
-    color: var(--texto-secundario)
+    color: var(--lm-texto-secundario)
     cursor: pointer
     height: 30px
     width: 30px
@@ -68,36 +58,33 @@ form
   width: 572px
   margin: 100px auto
   padding: 40px
-  box-shadow: 4px 4px 15px rgba(112, 112, 112, 0.22)
+  box-shadow: 4px 4px 15px #707070
   border-radius: 8px
+  display: flex
+  flex-direction: column
 
-  p
+  h1
+    color: #1172B7
     font-size: 39px
-    margin-bottom: 52px
-    letter-spacing: -2px
+    margin-bottom: 20px
 
   label
     display: block
     margin-bottom: 10px
-    color: var(--texto-secundario)
-
-  a
-    display: block
-    text-align: right
-    margin-bottom: 50px
+    color: #6C6C6C
 
   input
-    width: 89%
-    padding: 30px
-    background-color: var(--campos)
-    color: var(--texto-principal)
+    width: 100%
+    padding: 15px
+    background-color: var(--lm-campos)
     border: 1px solid #CCC
     border-radius: 6px
     margin-bottom: 15px
-    font-size: 20px
+    margin-left: 15px
 
     &::placeholder
-      color: var(--texto-secundario)
+      color: #6C6C6C
+      
 
   .checkbox-container
     display: flex
@@ -106,12 +93,10 @@ form
 
     input
       margin-right: 10px
-      width: 30px
-      height: 30px
 
   button
     width: 100%
-    background-color: var(--color-principal)
+    background-color: #0B95BB
     color: white
     font-size: 16px
     border: none
@@ -120,9 +105,10 @@ form
     cursor: pointer
 
   .links
+    text-align: center
     margin-top: 20px
 
     a
-      text-align: center
       color: var(--color-principal)
       text-decoration: underline
+      margin-right: 15px
