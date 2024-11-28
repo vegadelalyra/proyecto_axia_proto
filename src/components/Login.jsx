@@ -5,22 +5,15 @@ const Login = () => {
 
   return (
     <form>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-        }}>
-        <p style={{ color: 'var(--color-secundario)' }}>Inicio de sesión</p>
-        <p style={{ color: 'var(--texto-secundario)' }}>GMAO WEB</p>
+      <div className='login-header'>
+        <p className='login-title'>Inicio de sesión</p>
+        <p className='login-subtitle'>GMAO WEB</p>
       </div>
 
       {/* <label htmlFor='usuario'>Usuario</label> */}
       <input id='usuario' type='text' placeholder='Usuario' />
 
-      <a href='#' style={{ color: '#2071B7' }}>
-        ¿Olvidaste tu usuario?
-      </a>
+      <a href='#'>¿Olvidaste tu usuario?</a>
 
       {/* <label htmlFor='contraseña'>Contraseña</label> */}
       <div style={{ position: 'relative' }}>
@@ -28,6 +21,7 @@ const Login = () => {
           id='contraseña'
           type={showPassword ? 'text' : 'password'}
           placeholder='Contraseña'
+          autoComplete='true'
         />
         <span
           style={{
@@ -42,17 +36,12 @@ const Login = () => {
         </span>
       </div>
 
-      <a href='#' style={{ color: '#2071B7' }}>
-        Restablecer contraseña
-      </a>
+      <a href='#'>Restablecer contraseña</a>
 
       <div className='checkbox-container'>
         <input type='checkbox' id='remember' />
         <label htmlFor='remember'>
-          Recordar mi{' '}
-          <span style={{ color: 'var(--color-principal)' }}>
-            inicio de sesión
-          </span>
+          Recordar mi <span>inicio de sesión</span>
         </label>
       </div>
 

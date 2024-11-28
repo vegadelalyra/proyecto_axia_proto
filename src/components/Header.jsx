@@ -9,6 +9,8 @@ const Header = () => {
     return savedTheme === 'true';
   });
 
+  const [marginTop, setMarginTop] = useState(0);
+
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
@@ -21,16 +23,47 @@ const Header = () => {
     localStorage.setItem('isDarkMode', isDarkMode);
   }, [isDarkMode]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      if (scrollY <= 100) {
+        setMarginTop((scrollY / 100) * 30); // Gradually reduce marginTop from 30px to 0px
+      } else {
+        setMarginTop(30); // Fix at 30px once scrollY > 100
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll); // Cleanup on unmount
+    };
+  }, []);
+
+  const handleCopyToClipboard = text => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert(`Copied to clipboard: ${text}`);
+      })
+      .catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+  };
+
   return (
     <header>
       <div style={{ marginLeft: '50px', width: '100%' }}>
         <div className='container'>
           <span>
-            Axia@axiaservicios.com | C/ Paduleta 18, Polígono Industrial Júndiz,
-            01015 Vitoria-Gasteiz
+            <span
+              style={{ cursor: 'pointer' }}
+              onClick={() => handleCopyToClipboard('Axia@axiaservicios.com')}>
+              Axia@axiaservicios.com
+            </span>{' '}
+            | C/ Paduleta 18, Polígono Industrial Júndiz, 01015 Vitoria-Gasteiz
           </span>
           <span className='container_contact' style={{ marginRight: '50px' }}>
-            +34945354738
+            <span style={{ cursor: 'pointer' }}>+34 945 354 738</span>
           </span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -46,20 +79,20 @@ const Header = () => {
               height: '59px',
               position: 'relative',
               top: '21px',
+              cursor: 'pointer',
+              userSelect: 'none',
             }}
           />
-          <div className='split-button' style={{ marginRight: '50px' }}>
+          <div
+            className='split-button'
+            style={{ marginRight: '50px', marginTop: `${marginTop}px` }}>
             <FaMoon
               onClick={() => setIsDarkMode(true)}
-              style={{
-                color: isDarkMode ? 'var(--color-principal)' : 'inherit',
-              }}
+              className={`${isDarkMode ? 'svg--dark' : ''}`}
             />
             <FaSun
               onClick={() => setIsDarkMode(false)}
-              style={{
-                color: !isDarkMode ? 'var(--color-principal)' : 'inherit',
-              }}
+              className={`${isDarkMode ? '' : 'svg--light'}`}
             />
           </div>
         </div>
