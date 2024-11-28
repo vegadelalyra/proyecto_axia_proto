@@ -108,13 +108,21 @@ const Header = () => {
           <div
             className='split-button'
             style={{ marginRight: '50px', marginTop: `${marginTop}px` }}>
-            <FaMoon
+            <img
+              src='src/assets/icons/dark_mode.svg'
+              alt='Activate Dark Mode'
               onClick={() => setIsDarkMode(true)}
               className={`${isDarkMode ? 'svg--dark' : ''}`}
+              role='button'
+              aria-label='Activate Dark Mode'
             />
-            <FaSun
+            <img
+              src='src/assets/icons/light_mode.svg'
+              alt='Activate Light Mode'
               onClick={() => setIsDarkMode(false)}
               className={`${isDarkMode ? '' : 'svg--light'}`}
+              role='button'
+              aria-label='Activate Light Mode'
             />
           </div>
         </div>

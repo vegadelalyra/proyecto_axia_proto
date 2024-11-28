@@ -29,8 +29,12 @@
 
 *
   font-family: 'Ubuntu', sans-serif
+  box-sizing: border-box
+  margin: 0
+  padding: 0
 
 body
+  user-select: none
   margin: 0
   padding: 0
   background-color: var(--primary-background)
@@ -72,7 +76,7 @@ header
   height: 42px
   gap: 5px
 
-  svg
+  img
     color: inherit
     cursor: pointer
     height: 30px
@@ -96,28 +100,39 @@ header
 form
   background-color: var(--secondary-background)
   width: 572px
-  margin: 100px auto
-  padding: 40px
+  height: 650px
+  margin: 76px auto
   box-shadow: 4px 4px 15px rgba(112, 112, 112, 0.22)
   border-radius: 8px
+  border: 1px solid transparent
+  display: flex
+  flex-flow: column
+  align-items: center
+
+  &:hover
+    border: 1px solid var(--login-button--hover)
 
   .login
     &-header
+      width: 100%
+      height: 53px
+      margin-top: 50px
+      margin-bottom: 52px
+      padding: 0 53px
       display: flex
-      justify-content: space-between
+      justify-content: space-around
       align-items: flex-start
       cursor: default
+
+      span
+        font-size: 39px
+        letter-spacing: -2px
 
     &-title
       color: var(--primary-text)
 
     &-subtitle
       color: var(--secondary-text)
-
-  p
-    font-size: 39px
-    margin-bottom: 52px
-    letter-spacing: -2px
 
   label
     display: block
@@ -127,7 +142,6 @@ form
   a
     display: inline-block
     text-align: right
-    margin-bottom: 50px
     color: var(--link-color)
     transition: color 0.2s ease-in-out
 
@@ -135,8 +149,8 @@ form
       color: var(--icon-button)
 
   input
-    width: 89%
-    padding: 30px
+    height: 67px
+    width: 100%
     background-color: var(--fields)
     color: var(--input-color)
     border: 1px solid #CCC
@@ -164,7 +178,6 @@ form
     &:hover span
       opacity: 0.85
 
-
     input[type='checkbox']
       cursor: pointer
       margin-right: 10px
@@ -179,7 +192,7 @@ form
         animation: underline-draw 0.1s ease-out
 
       &:not(:checked) + label span
-        animation: underline-draw-reverse 0.1s ease-out 
+        animation: underline-draw-reverse 0.1s ease-out
         text-decoration: none
 
     label
@@ -212,6 +225,10 @@ form
     margin-top: 20px
     text-align: center
 
+// declarative styles ? INVESTIGATE
+.center-content
+  width: 360px
+
   // Keyframes for underline animation
 @keyframes underline-draw
   from
@@ -224,7 +241,6 @@ form
     text-decoration: underline var(--login-button) 2px
   to
     text-decoration: underline dotted var(--login-button) 0
-
 
 @keyframes fadeInOut
   0%
