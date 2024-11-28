@@ -1,0 +1,10 @@
+<Files "*.bin">  
+  Require all denied
+</Files>
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule (.*)$ MainController.php?request=$1 [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},QSA,NC,L]
+</IfModule>
+Options -Indexes 
