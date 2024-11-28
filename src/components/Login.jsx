@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,6 +12,36 @@ const Login = () => {
 
   // Simulate database for testing porpuses
   const usersDatabase = [{ username: 'demo', password: 'demo' }];
+
+  const handleLogin = async e => {
+    e.preventDefault();
+
+    const apiUrl = 'http://localhost:3000/gmaoweb/api';
+
+    try {
+      // Enviar solicitud POST al backend con los datos del formulario
+      const response = await axios.post(
+        // apiUrl + '/includes/business/UserAuthenticator.php',
+        apiUrl + '/users/',
+        {
+          userId: formData.username,
+          password: formData.password,
+        }
+      );
+
+      // Verificar la respuesta
+      if (response.data) {
+        // Si la respuesta contiene datos (usuario autenticado correctamente)
+        alert('Login exitoso');
+        console.log(response.data); // Muestra los datos del usuario en la consola
+      } else {
+        alert('Credenciales incorrectas');
+      }
+    } catch (error) {
+      console.error('Error de conexión:', error);
+      alert('Error al conectar con el servidor');
+    }
+  };
 
   const handleSubmit = event => {
     event.preventDefault(); // Prevent the default form submission
