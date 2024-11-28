@@ -9,10 +9,26 @@ const Login = () => {
     password: '',
   });
 
+  // Simulate database for testing porpuses
+  const usersDatabase = [{ username: 'demo', password: 'demo' }];
+
   const handleSubmit = event => {
     event.preventDefault(); // Prevent the default form submission
+
+    // Check if the entered username and password match any entry in the database
+    const user = usersDatabase.find(
+      user =>
+        user.username === formData.username &&
+        user.password === formData.password
+    );
+
+    if (user) {
+      alert('LOGGED IN');
+    } else {
+      alert('Invalid credentials');
+    }
+
     console.log('Form submitted:', formData);
-    // You can add your custom form submission logic here (e.g., API call)
   };
 
   // Handle input change
@@ -39,10 +55,13 @@ const Login = () => {
         value={formData.username}
         onChange={handleInputChange}
         placeholder='Usuario'
+        tabIndex={1}
       />
 
       <span style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <a href='#'>¿Olvidaste tu usuario?</a>
+        <a href='#' tabIndex={-1}>
+          ¿Olvidaste tu usuario?
+        </a>
       </span>
 
       {/* <label htmlFor='contraseña'>Contraseña</label> */}
@@ -55,6 +74,7 @@ const Login = () => {
           onChange={handleInputChange}
           placeholder='Contraseña'
           autoComplete='true'
+          tabIndex={2}
         />
         <span
           style={{
@@ -72,12 +92,14 @@ const Login = () => {
       </div>
 
       <span style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <a href='#'>Restablecer contraseña</a>
+        <a href='#' tabIndex={-1}>
+          Restablecer contraseña
+        </a>
       </span>
 
       <div className='checkbox-container'>
-        <input type='checkbox' id='remember' />
-        <label htmlFor='remember'>
+        <input type='checkbox' id='remember' tabIndex={3} />
+        <label htmlFor='remember' tabIndex={-1}>
           Recordar mi <span>inicio de sesión</span>
         </label>
       </div>
@@ -85,8 +107,8 @@ const Login = () => {
       <button type='submit'>INICIAR SESIÓN</button>
 
       <div className='links'>
-        <a href='#'>
-          <span>Crear un usuario</span>
+        <a href='#' tabIndex='-1'>
+          <span>Crear un usuario</span> {/* Remove from tabbing */}
         </a>
       </div>
     </form>
