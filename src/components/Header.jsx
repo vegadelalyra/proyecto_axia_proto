@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { FaSun, FaMoon } from 'react-icons/fa';
@@ -11,6 +12,12 @@ const Header = () => {
 
   const [marginTop, setMarginTop] = useState(0);
 
+  const [copiedText, setCopiedText] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
+  const timeoutRef = useRef(null);
+
+  // toggle dark mode
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
@@ -23,6 +30,7 @@ const Header = () => {
     localStorage.setItem('isDarkMode', isDarkMode);
   }, [isDarkMode]);
 
+  // sticky header
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -39,11 +47,21 @@ const Header = () => {
     };
   }, []);
 
+  // clipboardable texts with animation
+  const CLIPBOARD_ANIMATION_DURATION = 6_000;
   const handleCopyToClipboard = text => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        alert(`Copied to clipboard: ${text}`);
+        setCopiedText(text);
+        setShowModal(true);
+        setAnimationKey(prevKey => prevKey + 1);
+        timeoutRef.current = setTimeout(
+          () => setShowModal(false),
+          CLIPBOARD_ANIMATION_DURATION - 100
+        );
       })
       .catch(err => {
         console.error('Failed to copy: ', err);
@@ -63,7 +81,11 @@ const Header = () => {
             | C/ Paduleta 18, Polígono Industrial Júndiz, 01015 Vitoria-Gasteiz
           </span>
           <span className='container_contact' style={{ marginRight: '50px' }}>
-            <span style={{ cursor: 'pointer' }}>+34 945 354 738</span>
+            <span
+              style={{ cursor: 'pointer' }}
+              onClick={() => handleCopyToClipboard('+34 945 354 738')}>
+              +34 945 354 738
+            </span>
           </span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -97,6 +119,25 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      {showModal && (
+        <div
+          key={animationKey} // Use animation key to force a re-render
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            padding: '10px 20px',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            color: 'white',
+            borderRadius: '5px',
+            zIndex: '1000',
+            animation: `fadeInOut ${CLIPBOARD_ANIMATION_DURATION}ms ease-in-out`,
+          }}>
+          <p style={{ margin: 0 }}>Copiado al portapapeles: {copiedText}</p>
+        </div>
+      )}
     </header>
   );
 };
