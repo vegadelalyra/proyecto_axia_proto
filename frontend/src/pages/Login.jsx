@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import axios from 'axios';
-import { handleError } from '../utils/errorHandler';
-import { ENDPOINTS } from '../constants/endpoints';
+import { login } from '../utils/auth';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,30 +8,16 @@ const Login = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
+    rememberMe: false,
   });
 
   const handleLogin = async e => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(ENDPOINTS.USER_AUTHENTICATION, {
-        userId: formData.username,
-        password: formData.password,
-      });
+    const success = await login(formData);
 
-      if (response.data.success) {
-        alert('LOGGED IN! :D');
-        console.log(response.data);
-      } else {
-        console.error(response.data);
-      }
-    } catch (error) {
-      handleError({
-        message: error.message,
-        status: error.status,
-        code: error.code,
-      });
-    }
+    if (!success) return alert('No nos pudimos loggear!');
+    return window.location.reload();
   };
 
   // Handle input change
