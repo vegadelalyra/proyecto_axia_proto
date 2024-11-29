@@ -1,54 +1,33 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useAuth } from '../contexts/authContext';
 import { FaDoorOpen } from 'react-icons/fa';
 import { logout } from '../utils/auth';
+import { useTheme } from '../contexts/themeContext'; // import useTheme
 
 const Header = () => {
   const { isAuthenticated, user } = useAuth();
-
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('isDarkMode');
-    return savedTheme === 'true';
-  });
-
+  const { isDarkMode, activateDarkMode } = useTheme(); // get dark mode state and toggle function
   const [marginTop, setMarginTop] = useState(0);
-
   const [copiedText, setCopiedText] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
   const timeoutRef = useRef(null);
-
-  // toggle dark mode
-  useEffect(() => {
-    if (isDarkMode) {
-      document.body.classList.add('dark-mode');
-      document.body.classList.remove('light-mode');
-    } else {
-      document.body.classList.add('light-mode');
-      document.body.classList.remove('dark-mode');
-    }
-
-    localStorage.setItem('isDarkMode', isDarkMode);
-  }, [isDarkMode]);
 
   // sticky header
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       if (scrollY <= 100) {
-        setMarginTop((scrollY / 100) * 30); // Gradually reduce marginTop from 30px to 0px
+        setMarginTop((scrollY / 100) * 30);
       } else {
-        setMarginTop(30); // Fix at 30px once scrollY > 100
+        setMarginTop(30);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll); // Cleanup on unmount
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // clipboardable texts with animation
   const CLIPBOARD_ANIMATION_DURATION = 6_000;
   const handleCopyToClipboard = text => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -118,7 +97,10 @@ const Header = () => {
               <img
                 src='src/assets/icons/dark_mode.svg'
                 alt='Activate Dark Mode'
-                onClick={() => setIsDarkMode(true)}
+                onClick={() => {
+                  if (isDarkMode) return;
+                  activateDarkMode(true);
+                }} // toggle dark mode
                 className={`${isDarkMode ? 'svg--dark' : ''}`}
                 role='button'
                 aria-label='Activate Dark Mode'
@@ -126,12 +108,16 @@ const Header = () => {
               <img
                 src='src/assets/icons/light_mode.svg'
                 alt='Activate Light Mode'
-                onClick={() => setIsDarkMode(false)}
+                onClick={() => {
+                  if (!isDarkMode) return;
+                  activateDarkMode(false);
+                }} // toggle dark mode
                 className={`${isDarkMode ? '' : 'svg--light'}`}
                 role='button'
                 aria-label='Activate Light Mode'
               />
             </div>
+
             {isAuthenticated ? (
               <>
                 <div
@@ -175,7 +161,7 @@ const Header = () => {
 
       {showModal && (
         <div
-          key={animationKey} // Use animation key to force a re-render
+          key={animationKey}
           style={{
             position: 'fixed',
             bottom: '20px',
