@@ -4,7 +4,7 @@ import { FaDoorOpen } from 'react-icons/fa';
 import { logout } from '../utils/auth';
 
 const Header = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('isDarkMode');
@@ -94,6 +94,7 @@ const Header = () => {
         ) : (
           ''
         )}
+
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <img
             src={
@@ -106,12 +107,11 @@ const Header = () => {
               width: '256px',
               height: '59px',
               position: 'relative',
-              // top: '21px',
               cursor: 'pointer',
               userSelect: 'none',
             }}
           />
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <div
               className='split-button'
               style={{ marginRight: '50px', marginTop: `${marginTop}px` }}>
@@ -133,7 +133,39 @@ const Header = () => {
               />
             </div>
             {isAuthenticated ? (
-              <FaDoorOpen className='header_logout' onClick={logout} />
+              <>
+                <div
+                  className='profile-card'
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '18px',
+                    marginRight: '24px',
+                  }}>
+                  <div className='profile-picture'>
+                    <img
+                      src={
+                        user?.profilePicture ||
+                        '/src/assets/images/user_pic.jpg'
+                      }
+                      alt='Profile'
+                      style={{
+                        width: '68px',
+                        height: '68px',
+                        borderRadius: '50%',
+                      }}
+                    />
+                  </div>
+                  <div className='profile-info'>
+                    <div className='user-name'>{user?.Name || 'User Name'}</div>
+                    <div className='user-role'>
+                      {user?.userRole || 'User Role'}
+                    </div>
+                    <div className='company-name'>{'Axia servicios'}</div>
+                  </div>
+                </div>
+                <FaDoorOpen className='header_logout' onClick={logout} />
+              </>
             ) : (
               ''
             )}

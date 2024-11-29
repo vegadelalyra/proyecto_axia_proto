@@ -113,6 +113,40 @@ header
     &:hover
       color: var(--login-button--hover)
 
+  .profile-card
+    display: flex
+    align-items: center
+    gap: 18px
+    margin-right: 32px
+
+    .profile-picture
+      width: 68px
+      height: 68px
+      border: 4px solid var(--link-color)
+      border-radius: 50%
+      box-sizing: content-box
+
+    .profile-info
+      display: flex
+      flex-direction: column
+      align-items: center
+      gap: 4px
+
+      .user-name
+        font-size: 20px
+        color: var(--input-color)
+        font-weight: bold
+
+      .user-role
+        font-size: 16px
+        color: var(--secondary-text)
+        font-weight: 300
+
+      .company-name
+        font-size: 15px
+        color: var(--link-color)
+        font-weight: 300
+
 .container
   width: 100%
   margin: 0 auto
