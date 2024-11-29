@@ -1,5 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
+import Panel from '../components/panel';
 
 const Gmao = () => {
   const logout = () => {
@@ -8,9 +9,12 @@ const Gmao = () => {
   };
   return (
     <>
-      <h1>Welcome to GMAO</h1>
-      <p>This is the GMAO page.</p>
-      <button onClick={logout}>DESCONECTARME</button>
+      <Panel />
+      <div>
+        <h1>Welcome to GMAO</h1>
+        <p>This is the GMAO page.</p>
+        <button onClick={logout}>DESCONECTARME</button>
+      </div>
     </>
   );
 };

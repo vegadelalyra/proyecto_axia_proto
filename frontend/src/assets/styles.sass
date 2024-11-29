@@ -14,10 +14,13 @@
   --fields: #F8F5F3
   --input-color: black
   --button-background: #0BAAD6
+  --box-shadow: #707070
+
 
   // colors that do not change on dark mode
   --login-button: #0B95BB
   --login-button--hover: #064B5E
+  --icon-button--hover: rgb(111, 218, 250)
   --icon-button: #0BAAD6
   --link-color: #2071b7
   --white: white
@@ -33,6 +36,7 @@
   --fields: #1F1F1F
   --input-color: white
   --button-background: #6C6C6C
+  --box-shadow: rgb(18, 18, 18)
 
 *
   font-family: 'Ubuntu', sans-serif
@@ -346,3 +350,109 @@ form
     position: fixed
     top: 60%
     left: 55%
+
+  // GMAO
+
+    // panel
+.panel
+  margin-top: 48px
+  margin-left: 50px 
+  width: 340px
+  height: 740px
+  padding: 30px
+  box-shadow: -4px 4px 15px var(--box-shadow)
+  background-color: var(--fields)
+
+  .title
+    font-size: 39px
+    font-stretch: condensed
+    letter-spacing: -1px
+    margin-bottom: 16px
+    color: var(--primary-text)
+
+  input
+    background: transparent
+    border: none
+    border-bottom: 3px solid var(--main-text)
+    color: var(--input-color)
+    font-style: italic
+    font-size: 20px
+    width: 264px
+    outline: none
+    padding: 8px 0
+    padding-left: 33px
+    transition: all 0.3s ease
+
+    &:hover
+      border-color: var(--icon-button--hover)
+
+    &:focus-visible
+      border-color: var(--icon-button)
+
+  .input-container
+    position: relative
+    display: flex
+    align-items: center
+
+    .icon
+      position: absolute
+      left: 8px
+      font-size: 18px
+      color: var(--main-text)
+      transition: color 0.3s ease
+
+.input-container .icon.hovered
+  color: var(--icon-button--hover)
+
+.input-container .icon.focused
+  color: var(--icon-button)
+
+// expandable list
+.expandable-list
+  position: relative
+
+  .global-expand-icon
+    position: absolute
+    top: 0
+    right: 0
+    width: 20px
+    height: 20px
+    color: var(--primary-text)
+    cursor: pointer
+    transition: color 0.3s ease
+
+    &:hover
+      color: var(--secondary-text)
+
+  .title-container
+    margin-bottom: 10px
+
+    .title
+      font-size: 25px
+      font-weight: bolder
+      color: var(--main-text)
+      cursor: pointer
+      margin-left: 0
+      transition: color 0.3s ease
+
+      &:hover
+        color: var(--secondary-text)
+
+    .subtitles
+      margin-top: 5px
+      padding-left: 30px
+
+      .subtitle
+        font-size: 20px
+        font-weight: normal
+        color: var(--secondary-text)
+        margin-left: 30px
+        cursor: pointer
+        transition: font-weight 0.3s ease, color 0.3s ease
+
+        &.selected
+          font-weight: bolder
+          color: var(--main-text)
+
+        &:hover
+          color: var(--main-text)
