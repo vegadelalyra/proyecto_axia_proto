@@ -25,8 +25,8 @@
   --white: white
 
 .dark-mode
-  --primary-background: rgb(18, 18, 18)
-  --secondary-background: rgb(26, 26, 26)
+  --primary-background: #121212
+  --secondary-background: #1a1a1a
   --main-text: #E0E0E0
   --primary-text: #E0E0E0
   --secondary-text: #B0B0B0
@@ -414,13 +414,15 @@ form
 
     // panel
 .panel
-  margin-top: 48px
   margin-left: 50px
   width: 340px
   height: 740px
   padding: 30px
   box-shadow: -4px 4px 15px var(--box-shadow)
   background-color: var(--fields)
+  
+  // properties in common with .table
+  margin-top: 48px
   border-radius: 10px
 
   .title
@@ -529,3 +531,29 @@ form
 
         &:hover
           color: var(--main-text)
+
+// table
+.table
+  &__header
+    // width: 70%
+    // height: 70%
+    width: 1340px
+    height: 740px
+    background-color: var(--secondary-background)
+    justify-content: center
+    align-items: center
+    display: flex
+
+    // properties in common with .panel
+    margin-top: 48px
+    border-radius: 10px
+
+
+    &--hero
+      width: 425px
+      height: 473px
+      position: relative
+      right: 50px
+    
+
+  &__body
