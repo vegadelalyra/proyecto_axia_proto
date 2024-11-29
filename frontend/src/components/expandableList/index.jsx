@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ExpandableList = ({ data }) => {
+const ExpandableList = ({ data, searchTerm }) => {
   const [expandedTitles, setExpandedTitles] = useState({});
   const [selectedSubtitle, setSelectedSubtitle] = useState(null);
   const [allExpanded, setAllExpanded] = useState(false);
@@ -22,6 +22,24 @@ const ExpandableList = ({ data }) => {
     setExpandedTitles(newExpandedStates);
   };
 
+  const filterData = data => {
+    if (!searchTerm) return data;
+
+    return data
+      .map(item => {
+        const filteredSubtitles = item.subtitles.filter(subtitle =>
+          subtitle.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        if (filteredSubtitles.length > 0) {
+          return { ...item, subtitles: filteredSubtitles };
+        }
+        return null;
+      })
+      .filter(item => item !== null);
+  };
+
+  const filteredData = filterData(data);
+
   return (
     <div className='expandable-list'>
       <img
@@ -31,7 +49,7 @@ const ExpandableList = ({ data }) => {
         onClick={toggleAll}
       />
       <div className='expandable-list'>
-        {data.map(item => (
+        {filteredData.map(item => (
           <div key={item.title} className='title-container'>
             <div className='title' onClick={() => toggleTitle(item.title)}>
               {item.title}
