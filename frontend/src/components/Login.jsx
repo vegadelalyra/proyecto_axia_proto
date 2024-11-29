@@ -3,17 +3,12 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
 
 const Login = () => {
-  console.log('VITE_DOMAIN:', import.meta.env.VITE_DOMAIN);
-  console.log('VITE_PHP_API_URL:', import.meta.env.VITE_PHP_API_URL);
-
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
-
-  const [message, setMessage] = useState(''); // Para mostrar mensajes de error o éxito
 
   // Manejar el evento del envío del formulario
   const handleLogin = async e => {
@@ -33,46 +28,23 @@ const Login = () => {
 
       // Verificar la respuesta
       if (response.data.success) {
-        setMessage('Login exitoso');
-        console.log(response.data); // Si es necesario mostrar los datos, puedes hacerlo aquí
+        console.log(response.data);
       } else {
-        setMessage('Credenciales incorrectas');
+        console.error(response.data);
       }
     } catch (error) {
       // No mostramos nada en la consola
       if (error.response) {
         // Manejar el error pero sin loguearlo
         if (error.response.status === 401) {
-          setMessage('Credenciales incorrectas');
+          console.error(error.response.message);
         } else {
-          setMessage('Error en la autenticación: ' + error.response.statusText);
+          console.error(error.response.message);
         }
       } else {
-        setMessage('Error al conectar con el servidor');
+        console.error(error);
       }
     }
-  };
-
-  // Simulate database for testing porpuses
-  const usersDatabase = [{ username: 'demo', password: 'demo' }];
-
-  const handleSubmit = event => {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Check if the entered username and password match any entry in the database
-    const user = usersDatabase.find(
-      user =>
-        user.username === formData.username &&
-        user.password === formData.password
-    );
-
-    if (user) {
-      alert('LOGGED IN');
-    } else {
-      alert('Invalid credentials');
-    }
-
-    console.log('Form submitted:', formData);
   };
 
   // Handle input change
@@ -162,7 +134,7 @@ const Login = () => {
 
         <div className='links'>
           <a href='#' tabIndex='-1'>
-            <span>Crear un usuario</span> {/* Remove from tabbing */}
+            <span>Crear un usuario</span>
           </a>
         </div>
       </section>
