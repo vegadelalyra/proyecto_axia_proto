@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { ReactComponent as ExpandIcon } from '../../assets/icons/expand.svg';
-import './ExpandableList.sass';
 
 const ExpandableList = ({ data }) => {
   const [expandedTitles, setExpandedTitles] = useState({});
@@ -26,7 +24,12 @@ const ExpandableList = ({ data }) => {
 
   return (
     <div className='expandable-list'>
-      <ExpandIcon className='global-expand-icon' onClick={toggleAll} />
+      <img
+        src='/src/assets/icons/expand.svg'
+        alt='Toggle List'
+        className='global-expand-icon'
+        onClick={toggleAll}
+      />
       {data.map(item => (
         <div key={item.title} className='title-container'>
           <div className='title' onClick={() => toggleTitle(item.title)}>

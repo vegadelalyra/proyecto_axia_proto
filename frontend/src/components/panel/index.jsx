@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import { ROLES_MAPPING } from '../../constants/domain';
 import { FaSearch } from 'react-icons/fa';
-
-// import './styles.sass';
+import ExpandableList from '../expandableList'; // Import the ExpandableList component
 
 const Panel = () => {
-  // Hover state for the icon
+  // Hover and focus state for the input icon
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -18,6 +17,20 @@ const Panel = () => {
   // Get the role from the user data, and then find the mapped role name
   const userRole = userData ? ROLES_MAPPING[userData.rol] : 'Rol no asignado';
 
+  // Data for titles and subtitles
+  const listData = [
+    { title: 'Roles', subtitles: ['Vista de rol'] },
+    {
+      title: 'Gestión de Herramienta',
+      subtitles: ['CRUD', 'Permisos', 'Contraseñas', 'Grupos'],
+    },
+    {
+      title: 'Gestión de familias',
+      subtitles: ['CRUD familias', 'Inserción elementos', 'Inserción causas'],
+    },
+    { title: 'Gestión de unidades', subtitles: ['Crear nuevas unidades'] },
+  ];
+
   return (
     <aside className='panel'>
       <p className='title'>
@@ -25,9 +38,9 @@ const Panel = () => {
       </p>
       <section className='input-container'>
         <FaSearch
-          className={`icon ${isHovered ? 'hovered' : ''}
-        ${isFocused ? 'focused' : ''}
-        `}
+          className={`icon ${isHovered ? 'hovered' : ''} ${
+            isFocused ? 'focused' : ''
+          }`}
         />
         <input
           maxLength={20}
@@ -39,6 +52,7 @@ const Panel = () => {
           placeholder={'Buscar funcionalidad'}
         />
       </section>
+      <ExpandableList data={listData} />
     </aside>
   );
 };
