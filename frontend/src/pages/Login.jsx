@@ -97,8 +97,15 @@ const Login = () => {
         </span>
 
         <div className='checkbox-container'>
-          <input type='checkbox' id='remember' tabIndex={3} />
-          <label htmlFor='remember' tabIndex={-1}>
+          <input
+            type='checkbox'
+            id='rememberMe'
+            name='rememberMe'
+            checked={formData.rememberMe}
+            onChange={handleInputChange}
+            tabIndex={3}
+          />
+          <label htmlFor='rememberMe' tabIndex={-1}>
             Recordar mi <span>inicio de sesión</span>
           </label>
         </div>
