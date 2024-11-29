@@ -6,26 +6,33 @@
   // colors that change on dark mode
   --primary-background: #f4f4f4
   --secondary-background: #ffffff
+  --main-text: #707070
   --primary-text: #1172B7
   --secondary-text: #6C6C6C
   --primary-color: #2071b7
+  --secondary-color: white
   --fields: #F8F5F3
   --input-color: black
+  --button-background: #0BAAD6
 
   // colors that do not change on dark mode
   --login-button: #0B95BB
   --login-button--hover: #064B5E
   --icon-button: #0BAAD6
   --link-color: #2071b7
+  --white: white
 
 .dark-mode
   --primary-background: rgb(18, 18, 18)
   --secondary-background: rgb(26, 26, 26)
+  --main-text: #E0E0E0
   --primary-text: #E0E0E0
   --secondary-text: #B0B0B0
   --primary-color: #1A2B40
+  --secondary-color: #6c6c6c
   --fields: #1F1F1F
   --input-color: white
+  --button-background: #6C6C6C
 
 *
   font-family: 'Ubuntu', sans-serif
@@ -57,14 +64,13 @@ footer
 
   a
     margin-right: 20px
-    color: var(--secondary-text) 
+    color: var(--secondary-text)
     cursor: pointer
     text-decoration: none
     transition: color 0.3s ease
 
     &:hover
-      color: var(--primary-text) 
-
+      color: var(--primary-text)
 
 header
   background-color: var(--secondary-background)
@@ -275,3 +281,68 @@ form
     opacity: 1
   100%
     opacity: 0
+
+// 404 page
+.not_found_404
+  display: flex
+  flex-flow: column
+  align-items: center
+
+  h1
+    font-size: 441px
+    position: fixed
+    top: 15%
+    left: 40%
+
+  button
+    background-color: var(--button-background)
+    color: var(--white)
+    border-radius: 6px
+    border: none
+    width: 360px
+    font-size: 24px
+    font-weight: bold
+    height: 67px
+    cursor: pointer
+    position: fixed
+    top: 70%
+    left: 60%
+
+    &:hover
+      background-color: var(--primary-color)
+
+  .back_arrow_404
+    cursor: pointer
+    position: fixed
+    top: 35%
+    left: 30%
+    place-content: center
+    text-align: center
+    font-size: 70px
+    border: 3px solid var(--secondary-color)
+    background-color: var(--secondary-background)
+    border-radius: 100%
+    padding-top: 10px
+    width: 158px
+    height: 158px
+
+  .message_404
+    color: var(--main-text)
+    font-size: 50px
+    font-style: italic
+    letter-spacing: 0
+    text-align: right
+    width: 520px
+    height: 284px
+    position: fixed
+    top: 60%
+    left: 27%
+
+  .stick_404
+    height: 259px
+    width: 10px
+    border-radius: 10px
+    background-color: var(--secondary-text)
+    position: fixed
+    top: 60%
+    left: 55%

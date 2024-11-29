@@ -15,8 +15,8 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={isAuthenticated ? <Gmao /> : <Login />} />
+        <Route path='*' element={<NotFound />} />
       </Route>
-      <Route path='*' element={<NotFound />} />
     </Routes>
   );
 };
