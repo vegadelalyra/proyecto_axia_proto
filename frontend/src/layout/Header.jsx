@@ -1,9 +1,11 @@
-import React from 'react';
-import { useRef } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { useAuth } from '../contexts/authContext';
+import { FaDoorOpen } from 'react-icons/fa';
+import { logout } from '../utils/auth';
 
 const Header = () => {
+  const { isAuthenticated } = useAuth();
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('isDarkMode');
     return savedTheme === 'true';
@@ -70,23 +72,28 @@ const Header = () => {
   return (
     <header>
       <div style={{ marginLeft: '50px', width: '100%' }}>
-        <div className='container'>
-          <span>
-            <span
-              style={{ cursor: 'pointer' }}
-              onClick={() => handleCopyToClipboard('Axia@axiaservicios.com')}>
-              Axia@axiaservicios.com
-            </span>{' '}
-            | C/ Paduleta 18, Polígono Industrial Júndiz, 01015 Vitoria-Gasteiz
-          </span>
-          <span className='container_contact' style={{ marginRight: '50px' }}>
-            <span
-              style={{ cursor: 'pointer' }}
-              onClick={() => handleCopyToClipboard('+34 945 354 738')}>
-              +34 945 354 738
+        {!isAuthenticated ? (
+          <div className='container'>
+            <span style={{ marginBottom: '21px' }}>
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={() => handleCopyToClipboard('Axia@axiaservicios.com')}>
+                Axia@axiaservicios.com
+              </span>{' '}
+              | C/ Paduleta 18, Polígono Industrial Júndiz, 01015
+              Vitoria-Gasteiz
             </span>
-          </span>
-        </div>
+            <span className='container_contact' style={{ marginRight: '50px' }}>
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={() => handleCopyToClipboard('+34 945 354 738')}>
+                +34 945 354 738
+              </span>
+            </span>
+          </div>
+        ) : (
+          ''
+        )}
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <img
             src={
@@ -99,30 +106,37 @@ const Header = () => {
               width: '256px',
               height: '59px',
               position: 'relative',
-              top: '21px',
+              // top: '21px',
               cursor: 'pointer',
               userSelect: 'none',
             }}
           />
-          <div
-            className='split-button'
-            style={{ marginRight: '50px', marginTop: `${marginTop}px` }}>
-            <img
-              src='src/assets/icons/dark_mode.svg'
-              alt='Activate Dark Mode'
-              onClick={() => setIsDarkMode(true)}
-              className={`${isDarkMode ? 'svg--dark' : ''}`}
-              role='button'
-              aria-label='Activate Dark Mode'
-            />
-            <img
-              src='src/assets/icons/light_mode.svg'
-              alt='Activate Light Mode'
-              onClick={() => setIsDarkMode(false)}
-              className={`${isDarkMode ? '' : 'svg--light'}`}
-              role='button'
-              aria-label='Activate Light Mode'
-            />
+          <div style={{ display: 'flex' }}>
+            <div
+              className='split-button'
+              style={{ marginRight: '50px', marginTop: `${marginTop}px` }}>
+              <img
+                src='src/assets/icons/dark_mode.svg'
+                alt='Activate Dark Mode'
+                onClick={() => setIsDarkMode(true)}
+                className={`${isDarkMode ? 'svg--dark' : ''}`}
+                role='button'
+                aria-label='Activate Dark Mode'
+              />
+              <img
+                src='src/assets/icons/light_mode.svg'
+                alt='Activate Light Mode'
+                onClick={() => setIsDarkMode(false)}
+                className={`${isDarkMode ? '' : 'svg--light'}`}
+                role='button'
+                aria-label='Activate Light Mode'
+              />
+            </div>
+            {isAuthenticated ? (
+              <FaDoorOpen className='header_logout' onClick={logout} />
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>

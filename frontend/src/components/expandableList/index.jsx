@@ -30,27 +30,29 @@ const ExpandableList = ({ data }) => {
         className='global-expand-icon'
         onClick={toggleAll}
       />
-      {data.map(item => (
-        <div key={item.title} className='title-container'>
-          <div className='title' onClick={() => toggleTitle(item.title)}>
-            {item.title}
-          </div>
-          {expandedTitles[item.title] && (
-            <div className='subtitles'>
-              {item.subtitles.map((subtitle, index) => (
-                <div
-                  key={index}
-                  className={`subtitle ${
-                    selectedSubtitle === subtitle ? 'selected' : ''
-                  }`}
-                  onClick={() => setSelectedSubtitle(subtitle)}>
-                  {subtitle}
-                </div>
-              ))}
+      <div className='expandable-list'>
+        {data.map(item => (
+          <div key={item.title} className='title-container'>
+            <div className='title' onClick={() => toggleTitle(item.title)}>
+              {item.title}
             </div>
-          )}
-        </div>
-      ))}
+            {expandedTitles[item.title] && (
+              <div className='subtitles'>
+                {item.subtitles.map((subtitle, index) => (
+                  <div
+                    key={index}
+                    className={`subtitle ${
+                      selectedSubtitle === subtitle ? 'selected' : ''
+                    }`}
+                    onClick={() => setSelectedSubtitle(subtitle)}>
+                    {subtitle}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

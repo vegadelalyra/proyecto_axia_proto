@@ -11,11 +11,10 @@
   --secondary-text: #6C6C6C
   --primary-color: #2071b7
   --secondary-color: white
-  --fields: #F8F5F3
+  --fields: #FFFF
   --input-color: black
   --button-background: #0BAAD6
   --box-shadow: #707070
-
 
   // colors that do not change on dark mode
   --login-button: #0B95BB
@@ -61,13 +60,11 @@ footer
   height: 95px
   background-color: var(--secondary-background)
   display: flex
-  justify-content: flex-end
+  justify-content: space-between
   align-items: center
-  padding-right: 50px
-  opacity: 1
+  padding: 0 50px
 
   a
-    margin-right: 20px
     color: var(--secondary-text)
     cursor: pointer
     text-decoration: none
@@ -75,6 +72,23 @@ footer
 
     &:hover
       color: var(--primary-text)
+
+  .footer-left
+    color: var(--secondary-text)
+
+  .footer-right
+    display: flex
+    align-items: center
+    gap: 10px
+
+    span
+      color: var(--icon-button)
+      font-size: 16px
+
+  .footer-links
+    display: flex
+    align-items: center
+    gap: 20px
 
 header
   background-color: var(--secondary-background)
@@ -87,6 +101,17 @@ header
   justify-content: space-between
   align-items: center
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1)
+
+  .header_logout
+    height: 42px
+    width: 42px
+    margin-right: 67px
+    transition: 0.2s ease-in-out
+    cursor: pointer
+    color: var(--icon-button)
+
+    &:hover
+      color: var(--login-button--hover)
 
 .container
   width: 100%
@@ -356,12 +381,13 @@ form
     // panel
 .panel
   margin-top: 48px
-  margin-left: 50px 
+  margin-left: 50px
   width: 340px
   height: 740px
   padding: 30px
   box-shadow: -4px 4px 15px var(--box-shadow)
   background-color: var(--fields)
+  border-radius: 10px
 
   .title
     font-size: 39px
@@ -417,6 +443,7 @@ form
   overflow-x: hidden
 
   .global-expand-icon
+    z-index: 10
     position: absolute
     top: 0
     right: 0

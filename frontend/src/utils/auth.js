@@ -34,3 +34,8 @@ export const login = async ({ username, password, rememberMe }) => {
     return false;
   }
 };
+
+export const logout = () => {
+  Cookies.remove('session');
+  window.location.reload(); // Reload to redirect back to the login page
+};
