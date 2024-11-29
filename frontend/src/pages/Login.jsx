@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
+import { handleError } from '../utils/errorHandler';
+import { ENDPOINTS } from '../constants/endpoints';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,40 +12,27 @@ const Login = () => {
     password: '',
   });
 
-  // Manejar el evento del envío del formulario
   const handleLogin = async e => {
-    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+    e.preventDefault();
 
     try {
-      // Enviar solicitud POST al backend con los datos del formulario
-      const response = await axios.post(
-        import.meta.env.VITE_DOMAIN +
-          import.meta.env.VITE_PHP_API_URL +
-          'includes/business/UserAuthenticator.php',
-        {
-          userId: formData.username,
-          password: formData.password,
-        }
-      );
+      const response = await axios.post(ENDPOINTS.USER_AUTHENTICATION, {
+        userId: formData.username,
+        password: formData.password,
+      });
 
-      // Verificar la respuesta
       if (response.data.success) {
+        alert('LOGGED IN! :D');
         console.log(response.data);
       } else {
         console.error(response.data);
       }
     } catch (error) {
-      // No mostramos nada en la consola
-      if (error.response) {
-        // Manejar el error pero sin loguearlo
-        if (error.response.status === 401) {
-          console.error(error.response.message);
-        } else {
-          console.error(error.response.message);
-        }
-      } else {
-        console.error(error);
-      }
+      handleError({
+        message: error.message,
+        status: error.status,
+        code: error.code,
+      });
     }
   };
 
