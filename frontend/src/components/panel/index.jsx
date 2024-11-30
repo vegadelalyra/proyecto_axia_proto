@@ -56,7 +56,6 @@ const Panel = () => {
         />
       </section>
       <ExpandableList data={listData} searchTerm={searchTerm} />{' '}
-      {/* Pass the search term */}
     </aside>
   );
 };

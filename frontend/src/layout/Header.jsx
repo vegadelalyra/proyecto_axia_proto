@@ -7,26 +7,10 @@ import { useTheme } from '../contexts/themeContext'; // import useTheme
 const Header = () => {
   const { isAuthenticated, user } = useAuth();
   const { isDarkMode, activateDarkMode } = useTheme(); // get dark mode state and toggle function
-  const [marginTop, setMarginTop] = useState(0);
   const [copiedText, setCopiedText] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
   const timeoutRef = useRef(null);
-
-  // sticky header
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      if (scrollY <= 100) {
-        setMarginTop((scrollY / 100) * 30);
-      } else {
-        setMarginTop(30);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const CLIPBOARD_ANIMATION_DURATION = 6_000;
   const handleCopyToClipboard = text => {
@@ -91,9 +75,7 @@ const Header = () => {
             }}
           />
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div
-              className='split-button'
-              style={{ marginRight: '50px', marginTop: `${marginTop}px` }}>
+            <div className='split-button' style={{ marginRight: '50px' }}>
               <img
                 src='src/assets/icons/dark_mode.svg'
                 alt='Activate Dark Mode'

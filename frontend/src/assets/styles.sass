@@ -18,6 +18,7 @@
   --primary-table-header: #2071b7
   --secondary-table-header: #10395C
   --primary-table-text: #fff
+  --main-hover-text: #1172B7
 
   // colors that do not change on dark mode
   --login-button: #0B95BB
@@ -42,11 +43,16 @@
   --primary-table-header: #6c6c6c
   --secondary-table-header: #363636
   --primary-table-text: #b0b0b0
+  --main-hover-text: white
+
 *
   font-family: 'Ubuntu', sans-serif
   box-sizing: border-box
   margin: 0
   padding: 0
+
+html, body
+  overscroll-behavior: none
 
 body
   user-select: none
@@ -97,10 +103,13 @@ footer
     justify-content: flex-end
     gap: 20px
 
+main.main_content
+  padding-bottom: 129px
+
 header
   background-color: var(--secondary-background)
   position: sticky
-  top: -62px
+  top: 0px
   z-index: 100
   width: 100%
   padding: 26px 0
@@ -164,8 +173,6 @@ header
   align-items: center
 
 .split-button
-  position: sticky
-  top: 1px
   background-color: var(--fields)
   border: 1px solid var(--secondary-text)
   border-radius: 21px
@@ -219,7 +226,7 @@ form
       height: 53px
       margin-top: 50px
       margin-bottom: 52px
-      padding: 0 53px
+      padding: 0 20px
       display: flex
       justify-content: space-around
       align-items: flex-start
@@ -244,6 +251,7 @@ form
     display: inline-block
     text-align: right
     color: var(--link-color)
+    font-size: 20px
     transition: color 0.2s ease-in-out
 
     &:hover
@@ -259,23 +267,29 @@ form
     border-radius: 6px
     margin-bottom: 15px
     font-size: 20px
-    transition: 0.4s ease-in-out
+    transition: all 0.4s ease-in-out
 
     &::placeholder
       color: var(--secondary-text)
 
     &:hover
-      border: 1px solid var(--icon-button)
+      outline-color: transparent
+      border: 1px solid var(--icon-button--hover)
 
     &:focus-visible
-      outline-color: var(--icon-button)
+      outline-color: transparent
       outline-style: double
-      border: 1px solid #204eff
+      border: 1px solid var(--icon-button)
+
+  .password__eye
+    &:hover
+      color: var(--input-color)
 
   .checkbox-container
     display: flex
     align-items: center
-    margin-bottom: 20px
+    font-size: 20px
+    margin-bottom: 30px
 
     &:hover span
       opacity: 0.85
@@ -306,14 +320,15 @@ form
       cursor: pointer
       color: var(--login-button)
       opacity: 0.66
-      margin-left: 5px
+      margin-left: 7px
       transition: opacity 0.2s ease-in-out
 
   button
     width: 100%
     background-color: var(--login-button)
     color: white
-    font-size: 16px
+    font-size: 20px
+    font-weight: 600
     border: none
     border-radius: 6px
     padding: 15px
@@ -321,10 +336,10 @@ form
     transition: background-color 0.2s ease-in-out
 
     &:hover
-      background-color: rgb(11, 149, 187, 0.9)
+      background-color: rgb(11, 149, 187, 0.8)
 
   .links
-    margin-top: 20px
+    margin-top: 30px
     text-align: center
 
 // declarative styles ? INVESTIGATE
@@ -419,7 +434,7 @@ form
 
   // GMAO
 
-    // panel
+// panel
 .panel
   margin-left: 50px
   width: 340px
@@ -490,14 +505,18 @@ form
     position: absolute
     top: 0
     right: 0
-    margin-right: 20px
-    margin-top: 15px
+    margin-right: 25px
+    margin-top: 12px
     width: 40px
     height: 40px
     color: var(--primary-text)
     cursor: pointer
     transition: 0.3s ease
     opacity: 0.7
+    
+    &.animated 
+      animation: pulse 1.5s infinite ease-in-out
+      cursor: pointer
 
     &:hover
       color: var(--secondary-text)
@@ -505,11 +524,11 @@ form
 
   .title-container
     margin-bottom: 10px
-    width: 230px
+    width: 200px
 
     .title
       font-size: 25px
-      font-weight: bolder
+      font-weight: 500
       color: var(--main-text)
       cursor: pointer
       margin-left: 0
@@ -518,7 +537,11 @@ form
       transition: color 0.3s ease
 
       &:hover
-        color: var(--secondary-text)
+        color: var(--main-hover-text)
+
+      &.selected
+        font-weight: bolder
+        color: var(--main-hover-text)
 
     .subtitles
       margin-top: 5px
@@ -534,10 +557,18 @@ form
 
         &.selected
           font-weight: bolder
-          color: var(--main-text)
+          color: var(--main-hover-text)
 
         &:hover
-          color: var(--main-text)
+          color: var(--main-hover-text)
+
+// panel > expandableList > global-expand-icon button animation
+@keyframes pulse 
+  0%, 100% 
+    transform: scale(1)
+
+  50% 
+    transform: scale(1.2)
 
 // table
 .table
@@ -600,17 +631,19 @@ form
 
       .separator
         position: absolute
-        right: 80px 
+        right: 80px
         padding-bottom: 4px
         font-size: 20px
         color: var(--secondary-text)
 
       .search-icon
-        color: var(--primary-text)
+        color: var(--main-text)
+        // color: var(--primary-text)
         position: absolute
-        right: 50px 
-        width: 20px 
-        height: 20px 
+        right: 50px
+        width: 20px
+        height: 20px
+        transition: color 0.3s ease
 
     &--input
       border: 2px solid transparent
@@ -623,10 +656,19 @@ form
       border-radius: 20px
       padding-left: 25px
       font-size: 20px
+      transition: all 0.3s ease
 
       &:hover
         border: 2px solid var(--icon-button--hover)
       &:focus-visible
         border: 2px solid var(--icon-button)
 
-  &__body
+.search-icon.hovered
+  color: var(--icon-button--hover)
+
+.search-icon.focused
+  color: var(--icon-button)
+
+  // &__body
+
+

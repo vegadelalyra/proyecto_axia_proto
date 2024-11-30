@@ -22,11 +22,13 @@ const Login = () => {
 
   // Handle input change
   const handleInputChange = event => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const { name, value, checked, type } = event.target;
+
+    // Only update value or checked based on input type
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   return (
@@ -51,7 +53,7 @@ const Login = () => {
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
-            marginBottom: '50px',
+            marginBottom: '25px',
           }}>
           <a href='#' tabIndex={-1}>
             ¿Olvidaste tu usuario?
@@ -74,11 +76,12 @@ const Login = () => {
             style={{
               position: 'absolute',
               right: '20px',
-              top: '50%',
+              top: '46%',
               transform: 'translateY(-50%)',
               cursor: 'pointer',
-              fontSize: '40px',
+              fontSize: '33px',
             }}
+            className='password__eye'
             onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaEyeSlash /> : <FaEye />}{' '}
             {/* Conditional rendering */}
@@ -89,7 +92,7 @@ const Login = () => {
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
-            marginBottom: '25px',
+            marginBottom: '45px',
           }}>
           <a href='#' tabIndex={-1}>
             Restablecer contraseña

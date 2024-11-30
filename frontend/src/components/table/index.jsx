@@ -5,6 +5,11 @@ import { FaArrowLeft, FaSearch } from 'react-icons/fa';
 const Table = () => {
   const { isDarkMode } = useTheme();
 
+  // States for hover and focus interaction
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
+  // Fill color for input based on theme
   const [fillColor, setFillColor] = useState('#1F1F1F');
 
   useEffect(() => {
@@ -23,9 +28,24 @@ const Table = () => {
             <span>Escoge una opción para visualizar</span>
           </div>
           <div className='table__header--input-container'>
-            <input type='text' className='table__header--input' />
+            {/* Input field with hover and focus logic */}
+            <input
+              type='text'
+              className='table__header--input'
+              style={{ backgroundColor: fillColor }}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              placeholder='Buscar'
+            />
             <span className='separator'>|</span>
-            <FaSearch className='search-icon' />
+            {/* Search icon with conditional styles */}
+            <FaSearch
+              className={`search-icon ${isHovered ? 'hovered' : ''} ${
+                isFocused ? 'focused' : ''
+              }`}
+            />
           </div>
         </nav>
         <picture style={{ placeContent: 'center', height: '100%' }}>
@@ -55,6 +75,14 @@ const Table = () => {
             />
           </svg>
         </picture>
+        {/* <picture
+          style={{
+            position: 'absolute',
+            border: '1px solid red',
+            bottom: '10px',
+          }}>
+          <img src='/src/assets/images/logo_dark.png' alt='AXIA' />
+        </picture> */}
       </section>
       {/* <section className='table__body'>THE BIG TABLE2</section> */}
     </main>

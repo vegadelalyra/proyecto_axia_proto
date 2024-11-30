@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+// Expandable/shrinkable list of titles and subtitles
 const ExpandableList = ({ data, searchTerm }) => {
-  const [expandedTitles, setExpandedTitles] = useState({});
-  const [selectedSubtitle, setSelectedSubtitle] = useState(null);
+  // *panel memoization: for better ux, last expanded titles are stored
+  // PANEL MEMOIZATION*: loads the last state of panel saved on browser
+  const [expandedTitles, setExpandedTitles] = useState(() => {
+    const storedPanel = localStorage.getItem('axiaPanel');
+    return storedPanel ? JSON.parse(storedPanel) : { firstTime: true };
+  });
+  const [selectedSubtitle, setSelectedSubtitle] = useState(() => {
+    const storedSection = localStorage.getItem('axiaSection');
+    return storedSection ? JSON.parse(storedSection) : {};
+  });
   const [allExpanded, setAllExpanded] = useState(false);
+
+  // PANEL MEMOIZATION*: saves last state of panel expanded titles
+  useEffect(() => {
+    localStorage.setItem('axiaPanel', JSON.stringify(expandedTitles));
+  }, [expandedTitles]);
+
+  useEffect(() => {
+    localStorage.setItem('axiaSection', JSON.stringify(selectedSubtitle));
+  }, [selectedSubtitle]);
 
   const toggleTitle = title => {
     setExpandedTitles(prev => ({
@@ -45,14 +63,16 @@ const ExpandableList = ({ data, searchTerm }) => {
       <img
         src='/src/assets/icons/expand.svg'
         alt='Toggle List'
-        className='global-expand-icon'
+        className={`global-expand-icon ${
+          expandedTitles['firstTime'] ? 'animated' : ''
+        }`}
         onClick={toggleAll}
       />
       <div className='expandable-list'>
         {filteredData.map(item => (
           <div key={item.title} className='title-container'>
             <div className='title' onClick={() => toggleTitle(item.title)}>
-              {item.title}
+              <h5>{item.title}</h5>
             </div>
             {expandedTitles[item.title] && (
               <div className='subtitles'>
