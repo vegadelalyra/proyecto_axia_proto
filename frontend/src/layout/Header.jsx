@@ -77,7 +77,7 @@ const Header = () => {
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div className='split-button' style={{ marginRight: '50px' }}>
               <img
-                src='src/assets/icons/dark_mode.svg'
+                src='/src/assets/icons/dark_mode.svg'
                 alt='Activate Dark Mode'
                 onClick={() => {
                   if (isDarkMode) return;
@@ -88,7 +88,7 @@ const Header = () => {
                 aria-label='Activate Dark Mode'
               />
               <img
-                src='src/assets/icons/light_mode.svg'
+                src='/src/assets/icons/light_mode.svg'
                 alt='Activate Light Mode'
                 onClick={() => {
                   if (!isDarkMode) return;

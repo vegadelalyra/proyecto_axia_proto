@@ -6,6 +6,7 @@ import Layout from './layout/Layout';
 import Login from './pages/Login';
 import Gmao from './pages/Gmao';
 import NotFound from './pages/NotFound';
+import TableBody from './components/table/tableBody';
 
 const App = () => {
   const session = Cookies.get('session');
@@ -15,6 +16,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={isAuthenticated ? <Gmao /> : <Login />} />
+        <Route path='/*' element={<Gmao />} />
         <Route path='*' element={<NotFound />} />
       </Route>
     </Routes>

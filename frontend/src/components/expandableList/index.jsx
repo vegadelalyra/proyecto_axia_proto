@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Expandable/shrinkable list of titles and subtitles
 const ExpandableList = ({ data, searchTerm }) => {
+  // routes for gmao page and navigation in table component
+  const navigate = useNavigate();
+
+  const handleSubtitleClick = subtitle => {
+    const routeMap = {
+      'Vista de rol': '/roles/vista',
+      'CRUD familias': '/familias/crud',
+      'Sala de espera': '/',
+    };
+    setSelectedSubtitle(subtitle);
+    navigate(routeMap[subtitle]);
+  };
+
   // *panel memoization: for better ux, last expanded titles are stored
   // PANEL MEMOIZATION*: loads the last state of panel saved on browser
   const [expandedTitles, setExpandedTitles] = useState(() => {
@@ -23,6 +37,7 @@ const ExpandableList = ({ data, searchTerm }) => {
     localStorage.setItem('axiaSection', JSON.stringify(selectedSubtitle));
   }, [selectedSubtitle]);
 
+  // click titles to toggle subtitles visibility
   const toggleTitle = title => {
     setExpandedTitles(prev => ({
       ...prev,
@@ -30,6 +45,7 @@ const ExpandableList = ({ data, searchTerm }) => {
     }));
   };
 
+  // toggle button to toggle all subtitles visibility
   const toggleAll = () => {
     const nextExpandState = !allExpanded;
     setAllExpanded(nextExpandState);
@@ -82,7 +98,7 @@ const ExpandableList = ({ data, searchTerm }) => {
                     className={`subtitle ${
                       selectedSubtitle === subtitle ? 'selected' : ''
                     }`}
-                    onClick={() => setSelectedSubtitle(subtitle)}>
+                    onClick={() => handleSubtitleClick(subtitle)}>
                     {subtitle}
                   </div>
                 ))}

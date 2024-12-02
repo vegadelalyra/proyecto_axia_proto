@@ -513,8 +513,8 @@ form
     cursor: pointer
     transition: 0.3s ease
     opacity: 0.7
-    
-    &.animated 
+
+    &.animated
       animation: pulse 1.5s infinite ease-in-out
       cursor: pointer
 
@@ -563,19 +563,21 @@ form
           color: var(--main-hover-text)
 
 // panel > expandableList > global-expand-icon button animation
-@keyframes pulse 
-  0%, 100% 
+@keyframes pulse
+  0%, 100%
     transform: scale(1)
 
-  50% 
+  50%
     transform: scale(1.2)
 
 // table
 .table
+  section
+    width: 1340px
+
   &__header
     // width: 70%
     // height: 70%
-    width: 1340px
     height: 740px
     background-color: var(--secondary-background)
     justify-content: center
@@ -663,6 +665,73 @@ form
       &:focus-visible
         border: 2px solid var(--icon-button)
 
+    .roles-cards__container
+      margin: 33px 94px
+      display: flex
+      flex-wrap: wrap
+      gap: 39px 21px
+
+      .role-card
+        position: relative
+        cursor: pointer
+        border: 1px solid var(--secondary-text)
+        border-radius: 8px
+        padding: 14px 31px
+        width: 272px
+        height: 172px
+        opacity: 0.3
+        transition: 0.4s ease-in-out
+
+        &.selectedRol
+          border: 1px solid var(--icon-button)
+          opacity: 1
+
+          h3
+            color: var(--icon-button)
+
+          &:hover
+            border: 1px solid var(--icon-button)
+
+        &:hover
+          border: 1px solid var(--primary-text)
+          opacity: 1
+
+        h3
+          margin-bottom: 14px
+          color: var(--main-text)
+          text-transform: uppercase
+          // font-size: 17px
+
+        p
+          width: 150px
+          margin-left: 13px
+          font-size: 17px
+          margin-bottom: 10px
+          white-space: nowrap
+          overflow: hidden
+          text-overflow: ellipsis
+
+          &.role-permissions
+            margin-left: 26px
+
+        button
+          background-color: var(--icon-button)
+          color: var(--white)
+          font-size: 15px
+          border-radius: 6px
+          cursor: pointer
+          border: none
+          height: 39px
+          width: 126px
+          position: absolute
+          bottom: -10%
+          left: 50%
+          transform: translateX(-50%)
+          transition: 0.3s ease
+
+          &:hover
+            background-color: var(--icon-button--hover)
+
 .search-icon.hovered
   color: var(--icon-button--hover)
 
@@ -670,5 +739,3 @@ form
   color: var(--icon-button)
 
   // &__body
-
-
