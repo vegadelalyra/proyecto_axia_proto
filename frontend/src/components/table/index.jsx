@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useTheme } from '../../contexts/themeContext';
 import { FaArrowLeft, FaSearch } from 'react-icons/fa';
 import WaitRoom from '../waitroom';
 
