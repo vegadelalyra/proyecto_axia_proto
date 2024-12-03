@@ -88,7 +88,7 @@ const Header = () => {
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div className='split-button' style={{ marginRight: '50px' }}>
               <img
-                src='/src/assets/icons/dark_mode.svg'
+                src='https://orbitalcode-my.sharepoint.com/:u:/g/personal/bryanvalencia_orbitalcode_onmicrosoft_com/EWRqIMFh2W9Fv7L89Aiij_gBVy-uTE8Kz_L95sO6fOaBZA?e=S3eqj2'
                 alt='Activate Dark Mode'
                 onClick={() => {
                   if (isDarkMode) return;
@@ -99,7 +99,7 @@ const Header = () => {
                 aria-label='Activate Dark Mode'
               />
               <img
-                src='/src/assets/icons/light_mode.svg'
+                src='https://orbitalcode-my.sharepoint.com/:u:/g/personal/bryanvalencia_orbitalcode_onmicrosoft_com/EbASs7t-ux1JjSsW1ep2BlQBwYZrPynJzYYUSTgy_oDDsA?e=StRvzj'
                 alt='Activate Light Mode'
                 onClick={() => {
                   if (!isDarkMode) return;
