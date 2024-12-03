@@ -59,21 +59,32 @@ const Header = () => {
         )}
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <img
-            src={
-              isDarkMode
-                ? '/src/assets/images/logo_dark.png'
-                : '/src/assets/images/logo_light.png'
-            }
-            alt='Axia Logo'
-            style={{
-              width: '256px',
-              height: '59px',
-              position: 'relative',
-              cursor: 'pointer',
-              userSelect: 'none',
-            }}
-          />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <img
+              src={
+                isDarkMode
+                  ? '/src/assets/images/logo_dark.png'
+                  : '/src/assets/images/logo_light.png'
+              }
+              alt='Axia Logo'
+              style={{
+                width: '256px',
+                height: '59px',
+                position: 'relative',
+                cursor: 'pointer',
+                marginRight: '17px',
+                userSelect: 'none',
+              }}
+            />
+            <p
+              style={{
+                borderLeft: '1px solid #707070',
+                paddingLeft: '14px',
+                fontStyle: 'italic',
+              }}>
+              GMAO <br /> Versión <span style={{ color: '#2071B7' }}>1.0</span>
+            </p>
+          </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div className='split-button' style={{ marginRight: '50px' }}>
               <img

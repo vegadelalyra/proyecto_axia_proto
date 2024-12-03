@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ROLES } from '../../constants/domain';
+import { useAuth } from '../../contexts/authContext';
 
 const RolesCards = ({ searchedRole }) => {
-  const [selectedRole, setSelectedRole] = useState(null);
+  // Initial selected role: get the user role from auth context if uncached selected role
+  const { user } = useAuth();
+  const [selectedRole, setSelectedRole] = useState(() => {
+    const storedRole = localStorage.getItem('axiaSelectedRole');
+    return storedRole ? storedRole : user.userRole;
+  });
 
   const roles = [
     { name: ROLES.ADMINISTRADOR, permission: 'Gestiona el sistema' },
@@ -21,13 +27,15 @@ const RolesCards = ({ searchedRole }) => {
 
   useEffect(() => {
     if (searchedRole != null) {
-      setSelectedRole(searchedRole);
+      console.log(searchedRole);
+      handleSelectRole(searchedRole);
     }
   }, [searchedRole]);
 
   const handleSelectRole = role => {
-    if (selectedRole === role.name) return;
-    setSelectedRole(role.name);
+    if (selectedRole === role) return;
+    setSelectedRole(role);
+    localStorage.setItem('axiaSelectedRole', role);
   };
 
   return (
@@ -39,7 +47,7 @@ const RolesCards = ({ searchedRole }) => {
             className={`role-card ${
               selectedRole === role.name ? 'selectedRol' : ''
             }`}
-            onClick={() => handleSelectRole(role)}>
+            onClick={() => handleSelectRole(role.name)}>
             <h3>{role.name}</h3>
             <p>Resumen del rol</p>
             <p className='role-permissions'>{role.permission}</p>

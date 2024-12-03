@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Expandable/shrinkable list of titles and subtitles
-const ExpandableList = ({ data, searchTerm }) => {
+const ExpandableList = ({ data, searchTerm, section }) => {
   const navigate = useNavigate();
 
   const handleSubtitleClick = subtitle => {
-    console.log(subtitle);
     setSelectedSubtitle(subtitle.name);
     navigate(subtitle.path);
   };
@@ -17,21 +16,13 @@ const ExpandableList = ({ data, searchTerm }) => {
     const storedPanel = localStorage.getItem('axiaPanel');
     return storedPanel ? JSON.parse(storedPanel) : { firstTime: true };
   });
-  const [selectedSubtitle, setSelectedSubtitle] = useState(() => {
-    const storedSection = localStorage.getItem('axiaSection');
-    return storedSection ? JSON.parse(storedSection) : {};
-  });
+  const [selectedSubtitle, setSelectedSubtitle] = useState(section.subtitle);
   const [allExpanded, setAllExpanded] = useState(false);
 
   // PANEL MEMOIZATION*: saves last state of panel expanded titles
   useEffect(() => {
     localStorage.setItem('axiaPanel', JSON.stringify(expandedTitles));
   }, [expandedTitles]);
-
-  // PANEL MEMOIZATION*: saves last state of panel selected subtitle
-  useEffect(() => {
-    localStorage.setItem('axiaSection', JSON.stringify(selectedSubtitle));
-  }, [selectedSubtitle]);
 
   // click titles to toggle subtitles visibility
   const toggleTitle = title => {
@@ -43,7 +34,19 @@ const ExpandableList = ({ data, searchTerm }) => {
 
   // click button to toggle all subtitles visibility
   const toggleAll = () => {
-    const nextExpandState = !allExpanded;
+    const allTitlesExpanded = Object.values(expandedTitles).every(Boolean);
+    const anyTitlesExpanded = Object.values(expandedTitles).every(
+      title => title === false
+    );
+    let nextExpandState;
+
+    if (allTitlesExpanded) {
+      nextExpandState = false;
+    } else if (anyTitlesExpanded) {
+      nextExpandState = true;
+    } else {
+      nextExpandState = !allExpanded;
+    }
     setAllExpanded(nextExpandState);
     const newExpandedStates = {};
     Object.values(data).forEach(item => {
