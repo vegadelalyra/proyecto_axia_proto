@@ -3,6 +3,8 @@ import { useAuth } from '../contexts/authContext';
 import { FaDoorOpen } from 'react-icons/fa';
 import { logout } from '../utils/auth';
 import { useTheme } from '../contexts/themeContext'; // import useTheme
+import light_mode from '../assets/icons/light_mode.svg'
+import dark_mode from '../assets/icons/dark_mode.svg'
 
 const Header = () => {
   const { isAuthenticated, user } = useAuth();
@@ -88,7 +90,7 @@ const Header = () => {
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div className='split-button' style={{ marginRight: '50px' }}>
               <img
-                src='https://orbitalcode-my.sharepoint.com/:u:/g/personal/bryanvalencia_orbitalcode_onmicrosoft_com/EWRqIMFh2W9Fv7L89Aiij_gBVy-uTE8Kz_L95sO6fOaBZA?e=S3eqj2'
+                src={dark_mode}
                 alt='Activate Dark Mode'
                 onClick={() => {
                   if (isDarkMode) return;
@@ -99,7 +101,7 @@ const Header = () => {
                 aria-label='Activate Dark Mode'
               />
               <img
-                src='https://orbitalcode-my.sharepoint.com/:u:/g/personal/bryanvalencia_orbitalcode_onmicrosoft_com/EbASs7t-ux1JjSsW1ep2BlQBwYZrPynJzYYUSTgy_oDDsA?e=StRvzj'
+                src={light_mode}
                 alt='Activate Light Mode'
                 onClick={() => {
                   if (!isDarkMode) return;
