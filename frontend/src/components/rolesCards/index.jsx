@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { ROLES } from '../../constants/domain';
 
-const RolesCards = () => {
+const RolesCards = ({ searchedRole }) => {
   const [selectedRole, setSelectedRole] = useState(null);
 
   const roles = [
-    { name: 'Administrador', permission: 'Gestiona el sistema' },
-    { name: 'Reporter', permission: 'Genera informes' },
-    { name: 'Curador', permission: 'Supervisa contenido' },
-    { name: 'Reparador', permission: 'Repara equipos' },
-    { name: 'Diseñador', permission: 'Crea diseños' },
-    { name: 'Cliente Final', permission: 'Accede a los recursos' },
-    { name: 'Calidad', permission: 'Controla calidad' },
-    { name: 'Control', permission: 'Gestiona control' },
-    { name: 'Planificador', permission: 'Organiza tareas' },
-    { name: 'Manager', permission: 'Administra equipos' },
-    { name: 'Fabricante', permission: 'Produce bienes' },
-    { name: 'Support', permission: 'Brinda soporte' },
+    { name: ROLES.ADMINISTRADOR, permission: 'Gestiona el sistema' },
+    { name: ROLES.REPORTER, permission: 'Genera informes' },
+    { name: ROLES.CURATOR, permission: 'Supervisa contenido' },
+    { name: ROLES.REPARADOR, permission: 'Repara equipos' },
+    { name: ROLES.DISEÑADOR, permission: 'Crea diseños' },
+    { name: ROLES.CLIENTE_FINAL, permission: 'Accede a los recursos' },
+    { name: ROLES.CALIDAD, permission: 'Controla calidad' },
+    { name: ROLES.CONTROL, permission: 'Gestiona control' },
+    { name: ROLES.PLANIFICADOR, permission: 'Organiza tareas' },
+    { name: ROLES.MANAGER, permission: 'Administra equipos' },
+    { name: ROLES.FABRICANTE, permission: 'Produce bienes' },
+    { name: ROLES.SUPPORT, permission: 'Brinda soporte' },
   ];
+
+  useEffect(() => {
+    if (searchedRole != null) {
+      setSelectedRole(searchedRole);
+    }
+  }, [searchedRole]);
 
   const handleSelectRole = role => {
     if (selectedRole === role.name) return;

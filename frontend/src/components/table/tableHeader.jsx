@@ -2,13 +2,31 @@ import React, { useState } from 'react';
 import { FaArrowLeft, FaSearch } from 'react-icons/fa';
 import WaitRoomHero from '../waitroom/WaitRoomHero';
 import RolesCards from '../RolesCards';
+import { ROLES } from '../../constants/domain';
 
 const TableHeader = ({ section }) => {
   // States for hover and focus interaction
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchedRole, setSearchedRole] = useState(null);
 
   const isRootPath = location.pathname === '/';
+
+  // Handler for searching and selecting a role
+  const handleSearch = e => {
+    const query = e.target.value.toLowerCase();
+    setSearchTerm(query);
+
+    if (!isRootPath && query) {
+      const roles = Object.values(ROLES);
+      const matchedRole = roles.find(role =>
+        role.toLowerCase().includes(query)
+      );
+
+      setSearchedRole(matchedRole || null);
+    }
+  };
 
   return (
     <section className='table__header'>
@@ -37,6 +55,8 @@ const TableHeader = ({ section }) => {
             onMouseLeave={() => setIsHovered(false)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
+            value={searchTerm}
+            onChange={handleSearch}
             placeholder='Buscar'
           />
           <span className='separator'>|</span>
@@ -48,7 +68,11 @@ const TableHeader = ({ section }) => {
           />
         </div>
       </nav>
-      {isRootPath ? <WaitRoomHero /> : <RolesCards />}
+      {isRootPath ? (
+        <WaitRoomHero />
+      ) : (
+        <RolesCards searchedRole={searchedRole} />
+      )}
       <picture
         style={{
           position: 'absolute',

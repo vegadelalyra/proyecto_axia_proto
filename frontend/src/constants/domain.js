@@ -1,4 +1,4 @@
-const ROLES = {
+export const ROLES = {
   ADMINISTRADOR: 'Administrador',
   REPORTER: 'Reporter',
   CURATOR: 'Curator',
