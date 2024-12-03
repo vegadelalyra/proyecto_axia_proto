@@ -92,8 +92,8 @@ const Header = () => {
           <img
             src={
               isDarkMode
-                ? '/src/assets/images/logo_dark.png'
-                : '/src/assets/images/logo_light.png'
+                ? 'https://orbitalcode-my.sharepoint.com/:u:/g/personal/bryanvalencia_orbitalcode_onmicrosoft_com/EWRqIMFh2W9Fv7L89Aiij_gBVy-uTE8Kz_L95sO6fOaBZA?e=S3eqj2'
+                : 'https://orbitalcode-my.sharepoint.com/:u:/g/personal/bryanvalencia_orbitalcode_onmicrosoft_com/EbASs7t-ux1JjSsW1ep2BlQBwYZrPynJzYYUSTgy_oDDsA?e=StRvzj'
             }
             alt='Axia Logo'
             style={{
