@@ -3,17 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 // Expandable/shrinkable list of titles and subtitles
 const ExpandableList = ({ data, searchTerm }) => {
-  // routes for gmao page and navigation in table component
   const navigate = useNavigate();
 
   const handleSubtitleClick = subtitle => {
-    const routeMap = {
-      'Vista de rol': '/roles/vista',
-      'CRUD familias': '/familias/crud',
-      'Sala de espera': '/',
-    };
-    setSelectedSubtitle(subtitle);
-    navigate(routeMap[subtitle]);
+    console.log(subtitle);
+    setSelectedSubtitle(subtitle.name);
+    navigate(subtitle.path);
   };
 
   // *panel memoization: for better ux, last expanded titles are stored
@@ -33,6 +28,7 @@ const ExpandableList = ({ data, searchTerm }) => {
     localStorage.setItem('axiaPanel', JSON.stringify(expandedTitles));
   }, [expandedTitles]);
 
+  // PANEL MEMOIZATION*: saves last state of panel selected subtitle
   useEffect(() => {
     localStorage.setItem('axiaSection', JSON.stringify(selectedSubtitle));
   }, [selectedSubtitle]);
@@ -45,25 +41,27 @@ const ExpandableList = ({ data, searchTerm }) => {
     }));
   };
 
-  // toggle button to toggle all subtitles visibility
+  // click button to toggle all subtitles visibility
   const toggleAll = () => {
     const nextExpandState = !allExpanded;
     setAllExpanded(nextExpandState);
     const newExpandedStates = {};
-    data.forEach(item => {
+    Object.values(data).forEach(item => {
       newExpandedStates[item.title] = nextExpandState;
     });
     setExpandedTitles(newExpandedStates);
   };
 
+  // input for searching a specific subtitle/section of the gmao app
   const filterData = data => {
-    if (!searchTerm) return data;
+    if (!searchTerm) return Object.values(data); // Ensure we return an array when no search term
 
-    return data
+    return Object.values(data)
       .map(item => {
         const filteredSubtitles = item.subtitles.filter(subtitle =>
-          subtitle.toLowerCase().includes(searchTerm.toLowerCase())
+          subtitle.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
+
         if (filteredSubtitles.length > 0) {
           return { ...item, subtitles: filteredSubtitles };
         }
@@ -96,10 +94,10 @@ const ExpandableList = ({ data, searchTerm }) => {
                   <div
                     key={index}
                     className={`subtitle ${
-                      selectedSubtitle === subtitle ? 'selected' : ''
+                      selectedSubtitle === subtitle.name ? 'selected' : ''
                     }`}
                     onClick={() => handleSubtitleClick(subtitle)}>
-                    {subtitle}
+                    {subtitle.name}
                   </div>
                 ))}
               </div>

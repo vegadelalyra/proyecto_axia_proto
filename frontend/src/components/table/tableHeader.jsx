@@ -3,7 +3,7 @@ import { FaArrowLeft, FaSearch } from 'react-icons/fa';
 import WaitRoomHero from '../waitroom/WaitRoomHero';
 import RolesCards from '../RolesCards';
 
-const TableHeader = ({ title, subtitle }) => {
+const TableHeader = ({ section }) => {
   // States for hover and focus interaction
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -23,7 +23,7 @@ const TableHeader = ({ title, subtitle }) => {
               'Escoge una opción para visualizar'
             ) : (
               <>
-                <strong>{title}</strong> &gt; {subtitle}{' '}
+                <strong>{section.title}</strong> &gt; {section.subtitle}{' '}
               </>
             )}
           </span>

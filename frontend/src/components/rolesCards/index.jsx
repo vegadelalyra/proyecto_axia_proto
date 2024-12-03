@@ -19,7 +19,6 @@ const RolesCards = () => {
   ];
 
   const handleSelectRole = role => {
-    console.log(role.name, selectedRole);
     if (selectedRole === role.name) return;
     setSelectedRole(role.name);
   };

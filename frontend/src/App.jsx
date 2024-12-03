@@ -6,7 +6,6 @@ import Layout from './layout/Layout';
 import Login from './pages/Login';
 import Gmao from './pages/Gmao';
 import NotFound from './pages/NotFound';
-import TableBody from './components/table/tableBody';
 
 const App = () => {
   const session = Cookies.get('session');
